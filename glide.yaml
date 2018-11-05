@@ -1,0 +1,5 @@
+package: game-lottery/banshee
+import:
+- package: github.com/multiplay/go-slack
+- package: github.com/sahilm/fuzzy
+  version: ^0.1.0

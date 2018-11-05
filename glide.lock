@@ -1,0 +1,11 @@
+hash: 6d7c292b98ea36d6e510c784c795eaef2d17bd60a9fabdff805fbecc42b895f7
+updated: 2018-11-02T16:28:39.514216+08:00
+imports:
+- name: github.com/multiplay/go-slack
+  version: 6f89412cdb8cc2c5d6e58ff736b97d82a86d25d5
+  subpackages:
+  - chat
+  - webhook
+- name: github.com/sahilm/fuzzy
+  version: 0ca8ec0fccc8cd7d336a6d6dec490a327a8d5cb0
+testImports: []
