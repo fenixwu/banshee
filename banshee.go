@@ -26,7 +26,6 @@ var (
 type Banshee struct {
 	pattern string
 	message *chat.Message
-	// attachments []*chat.Attachment
 }
 
 // RegistChannel regists new channel.
@@ -74,5 +73,12 @@ func contains(t string, conditions []string) (isContains bool) {
 
 // New a banshee channel, default publish mode is EXACT.
 func New(pattern string) *Banshee {
-	return &Banshee{pattern, &chat.Message{Attachments: []*chat.Attachment{}}}
+	return &Banshee{pattern, &chat.Message{
+		Markdown:       true,
+		UnfurlLinks:    false,
+		UnfurlMedia:    false,
+		ReplyBroadcast: false,
+		Parse:          "none",
+		Attachments:    []*chat.Attachment{}},
+	}
 }
