@@ -1,4 +1,5 @@
 # Banshee
+
 [![GoDoc](https://godoc.org/github.com/go-redis/redis?status.svg)](https://godoc.org/github.com/fenixwu/banshee)
 
 Publish messages in slack channel, support fuzzy selecting channel.
@@ -14,25 +15,20 @@ banshee.RegistChannel(channelName, channelWebhook)
 ## Publish a message
 
 ```go
-log := banshee.New("log")
-err := log.Publish("test message")
+log := banshee.New("SEARCH_PATTERN_FOR_CHANNEL_NAME")
+err := log.SetMessage("test message").ExactPublish()
 
 if err != nil {
   // error handle
 }
 ```
 
-## Publish Channel Mode
+## Publish Mode
 
-### EXACT
+### ExactPublish
 
-Default mode is EXACT.
 Pattern "A" will make publishing messages in channel "A" exactly.
 
-### FUZZY
+### FuzzyPublish
 
 Pattern "ab" will make publishing messages in channel ".*[aA][bB].*", for example, "cab", "abc", "Ab", "aB", etc.
-
-```go
-log.SetPublishModeFuzzy()
-```
