@@ -13,11 +13,6 @@ func (b *Banshee) SetMessage(msg string) *Banshee {
 	return b
 }
 
-func (b *Banshee) SetText(text string) *Banshee {
-	b.message.Text = text
-	return b
-}
-
 func (b *Banshee) UseFullParseMode() *Banshee {
 	b.message.Parse = "full"
 	return b
@@ -66,7 +61,7 @@ func (b *Banshee) ExactPublish() (err error) {
 func publish(publishMode PublishMode, pattern string, message *chat.Message) (err error) {
 	switch publishMode {
 	case FUZZY:
-		matches := fuzzyFindChannel(pattern)
+		matches := fuzzy.Find(pattern, channels)
 		if matches.Len() == 0 {
 			err = errors.New("no channel matches")
 			return
@@ -78,7 +73,6 @@ func publish(publishMode PublishMode, pattern string, message *chat.Message) (er
 				_, err = message.Send(v)
 				return
 			}
-			err = errors.New("channel is not exist")
 		}
 	default:
 		if client, ok := clientMap[pattern]; ok {
@@ -88,8 +82,4 @@ func publish(publishMode PublishMode, pattern string, message *chat.Message) (er
 		err = errors.New("channel is not exist")
 	}
 	return
-}
-
-func fuzzyFindChannel(pattern string) fuzzy.Matches {
-	return fuzzy.Find(pattern, channels)
 }

@@ -1,7 +1,10 @@
 package banshee
 
 import (
+	"reflect"
 	"testing"
+
+	"github.com/multiplay/go-slack/chat"
 )
 
 func init() {
@@ -11,7 +14,7 @@ func init() {
 	}
 }
 
-const RealWebhookURL = "Set a real slack webhook URL here before running test"
+const RealWebhookURL = "https://hooks.slack.com/services/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"
 
 func TestRegistChannel(t *testing.T) {
 	type args struct {
@@ -97,6 +100,33 @@ func Test_contains(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotIsContains := contains(tt.args.t, tt.args.conditions); gotIsContains != tt.wantIsContains {
 				t.Errorf("contains() = %v, want %v", gotIsContains, tt.wantIsContains)
+			}
+		})
+	}
+}
+
+func TestNew(t *testing.T) {
+	type args struct {
+		pattern string
+	}
+	tests := []struct {
+		name string
+		args args
+		want *Banshee
+	}{
+		{"Test New - Pass", args{"A"}, &Banshee{"A", &chat.Message{
+			Markdown:       true,
+			UnfurlLinks:    false,
+			UnfurlMedia:    false,
+			ReplyBroadcast: false,
+			Parse:          "none",
+			Attachments:    []*chat.Attachment{}},
+		}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New(tt.args.pattern); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})
 	}
