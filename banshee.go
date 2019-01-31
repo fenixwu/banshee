@@ -30,28 +30,14 @@ type Banshee struct {
 
 // RegistChannel regists new channel.
 func RegistChannel(channel, webhookURL string) error {
-	if err := registChannel(channel, webhookURL); err != nil {
-		return err
-	}
-
+	registChannel(channel, webhookURL)
 	appendChannel(channel)
 	return nil
 }
 
-func registChannel(channel, webhookURL string) error {
+func registChannel(channel, webhookURL string) {
 	newClient := webhook.New(webhookURL)
 	clientMap[channel] = newClient
-	_, err := (&chat.Message{
-		Markdown: true,
-		Attachments: []*chat.Attachment{
-			{
-				Title: "Channel Registed",
-				Text:  channel,
-				Color: "#90DB8A",
-			},
-		},
-	}).Send(newClient)
-	return err
 }
 
 // 註冊頻道搜尋清單

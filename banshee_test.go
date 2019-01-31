@@ -16,50 +16,6 @@ func init() {
 
 const RealWebhookURL = "https://hooks.slack.com/services/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"
 
-func TestRegistChannel(t *testing.T) {
-	type args struct {
-		channel    string
-		webhookURL string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{"Test not OK", args{"test RegistChannel", "xxx"}, true},
-		{"Test OK", args{"test RegistChannel", RealWebhookURL}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := RegistChannel(tt.args.channel, tt.args.webhookURL); (err != nil) != tt.wantErr {
-				t.Errorf("RegistChannel() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
-func Test_registChannel(t *testing.T) {
-	type args struct {
-		channel    string
-		webhookURL string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		{"Test not OK", args{"test registChannel", "xxx"}, true},
-		{"Test OK", args{"test registChannel", RealWebhookURL}, false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := registChannel(tt.args.channel, tt.args.webhookURL); (err != nil) != tt.wantErr {
-				t.Errorf("registChannel() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
 func Test_appendChannel(t *testing.T) {
 	type args struct {
 		channel string
